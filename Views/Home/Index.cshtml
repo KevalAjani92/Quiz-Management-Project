@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<!-- Main Content -->
+<main class="main" id="main">
+
+    <div class="pagetitle"> 
+        <h1>Dashboard</h1> 
+        <nav> 
+            <ol class="breadcrumb"> 
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li> 
+                <li class="breadcrumb-item active">Dashboard</li> 
+            </ol> 
+        </nav> 
+    </div><!-- End Page Title --> 
+
+    <!-- Cards Section -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Quizzes</h5>
+                    <p class="card-text fs-2">42</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Active Users</h5>
+                    <p class="card-text fs-2">128</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Completed Quizzes</h5>
+                    <p class="card-text fs-2">350</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Quizzes</h5>
+                    <p class="card-text fs-2">8</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            Recent Activities
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">User John completed "Java Basics Quiz".</li>
+                <li class="list-group-item">Admin created a new quiz: "Python Advanced".</li>
+                <li class="list-group-item">User Sarah scored 85% in "CSS Fundamentals".</li>
+                <li class="list-group-item">User Mark attempted "React Beginner Quiz".</li>
+            </ul>
+        </div>
+    </div>
+
+</main>

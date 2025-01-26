@@ -1,0 +1,159 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Question</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Question</li>
+                <li class="breadcrumb-item active">AddEdit_Question</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title pb-0 mb-0">Add / Edit Question</h5>
+            <p class="small ">Choose Radio Button for Correct Option</p>
+
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-12 d-flex align-items-center">
+                    <div class="form-check" style="width: 2.8rem;"></div>
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingText"
+                               placeholder="QuestionText"
+                               required
+                               minlength="3">
+                        <label for="floatingText">Question Text</label>
+                        <div class="invalid-feedback">
+                            Question Text is required and must be at least 3 characters.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingOptionA"
+                               placeholder="Option-A"
+                               required
+                               minlength="1">
+                        <label for="floatingOptionA">Option-A</label>
+                        <div class="invalid-feedback">
+                            Option Text is required and must be at least 1 characters.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingOptionB"
+                               placeholder="Option-B"
+                               required
+                               minlength="1">
+                        <label for="floatingOptionB">Option-B</label>
+                        <div class="invalid-feedback">
+                            Option Text is required and must be at least 1 characters.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingOptionC"
+                               placeholder="Option-C"
+                               required
+                               minlength="1">
+                        <label for="floatingOptionC">Option-C</label>
+                        <div class="invalid-feedback">
+                            Option Text is required and must be at least 1 characters.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingOptionD"
+                               placeholder="Option-D"
+                               required
+                               minlength="1">
+                        <label for="floatingOptionD">Option-D</label>
+                        <div class="invalid-feedback">
+                            Option Text is required and must be at least 1 characters.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex align-items-center">
+                    <div class="form-check" style="width: 2.8rem;"></div>
+                    <div class="form-floating flex-grow-1">
+                        <input type="number"
+                               class="form-control"
+                               id="floatingQuestionMark"
+                               placeholder="Question Marks"
+                               required
+                               min="1">
+                        <label for="floatingQuestionMark">Question Marks</label>
+                        <div class="invalid-feedback">
+                            Question Marks must be at least 1.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="form-check" style="width: 2.8rem;"></div>
+                    <div class="form-floating flex-grow-1">
+                        <select class="form-select" id="floatingQuestionLevel" required>
+                            <option value="" selected disabled>Select Question Level</option>
+                            <option value="1">Easy</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Hard</option>
+                        </select>
+                        <label for="floatingQuestionLevel">Question Level</label>
+                        <div class="invalid-feedback">
+                            Must select a level for the question.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-3">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="reset" class="btn btn-danger">Cancel</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</main>
+<style>
+    /* Add border around the radio button */
+    .custom-radio {
+        border: 2px solid #007bff; /* Blue border color */
+        border-radius: 50%; /* Ensure it's circular */
+        padding: 5px; /* Add padding for visibility */
+        margin: 5px; /* Adjust spacing */
+        width: 20px; /* Set width */
+        height: 20px; /* Set height */
+    }
+
+        /* Change border color on focus */
+        .custom-radio:focus {
+            outline: none; /* Remove default focus outline */
+            box-shadow: 0 0 5px #007bff;
+            border-color: #0056b3; /* Darker blue border on focus */
+        }
+</style>

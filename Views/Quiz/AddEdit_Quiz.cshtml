@@ -1,0 +1,69 @@
+﻿
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Quiz</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Quiz</li>
+                <li class="breadcrumb-item active">AddEdit_Quiz</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add / Edit Quiz</h5>
+
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingName"
+                               placeholder="QuizName"
+                               required
+                               minlength="3">
+                        <label for="floatingName">Quiz Name</label>
+                        <div class="invalid-feedback">
+                            Quiz name is required and must be at least 3 characters.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="number"
+                               class="form-control"
+                               id="floatingTotalQuestions"
+                               placeholder="TotalQuestions"
+                               required
+                               min="1">
+                        <label for="floatingTotalQuestions">Total Questions</label>
+                        <div class="invalid-feedback">
+                            Total questions must be at least 1.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="date"
+                               class="form-control"
+                               id="floatingDate"
+                               placeholder="QuizDate"
+                               required>
+                        <label for="floatingDate">Quiz Date</label>
+                        <div class="invalid-feedback">
+                            Please select a valid quiz date.
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center pt-3">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="reset" class="btn btn-danger">Cancel</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</main>
