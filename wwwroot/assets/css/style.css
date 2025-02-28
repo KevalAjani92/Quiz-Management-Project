@@ -38,6 +38,10 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
+.table-responsive {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+}
 
 
 /*--------------------------------------------------------------

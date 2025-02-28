@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Question Details";
+}
+
+<main id="main" class="main flex-grow-1">
+    <div class="pagetitle">
+        <h1>Question Details</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Home/Dashboard">Home</a></li>
+                <li class="breadcrumb-item">Questions</li>
+                <li class="breadcrumb-item active">Question Details</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Glassmorphism Card with Background Gradient or Image -->
+    <div class="card glassmorphism-card">
+        <div class="card-body">
+            <h5 class="card-title pb-0 mb-0">Question Details</h5>
+            <p class="small text-danger mb-4">*Details of the selected question</p>
+
+            <div class="question-info">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Question Type:</strong> <span id="questionType">MCQ</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Active Status:</strong> <span id="activeStatus">True</span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <strong>Question Text:</strong> <p id="questionText">What is the capital of France?</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Option-A:</strong> <span id="optionA">Paris</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Option-B:</strong> <span id="optionB">London</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Option-C:</strong> <span id="optionC">Berlin</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Option-D:</strong> <span id="optionD">Rome</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Correct Option:</strong> <span id="correctOption">A</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Question Marks:</strong> <span id="questionMarks">5</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Question Level:</strong> <span id="questionLevel">Medium</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-3">
+                <button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Glassmorphism Card with Gradient or Image Background */
+    .glassmorphism-card {
+        background: rgba( 242, 239, 239, 0.65 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 20px );
+        -webkit-backdrop-filter: blur( 20px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+
+        /* Card Body with No Blur */
+        .glassmorphism-card .card-body {
+            background: none; /* Make the body background transparent */
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+    /* Basic styling for text */
+    .question-info {
+        color: #000; /* Dark text for better contrast */
+    }
+
+        .question-info .row {
+            margin-bottom: 10px;
+        }
+
+        .question-info strong {
+            font-weight: bold;
+        }
+
+        .question-info p,
+        .question-info span {
+            font-size: 1rem;
+            color: #333;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

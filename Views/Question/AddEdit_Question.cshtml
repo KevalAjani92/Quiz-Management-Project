@@ -1,10 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model QuizManagement.Models.QuestionModel
 @{
+    ViewData["Title"] = "Question Add/Edit";
 }
 
-<main id="main" class="main">
+
+<main id="main" class="main flex-grow-1">
 
     <div class="pagetitle">
         <h1>Question</h1>
@@ -19,119 +19,133 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title pb-0 mb-0">Add / Edit Question</h5>
-            <p class="small ">Choose Radio Button for Correct Option</p>
+            <p class="small text-danger mb-4">*Choose Radio Button for Correct Option</p>
 
-            <form class="row g-3 needs-validation" novalidate>
-                <div class="col-md-12 d-flex align-items-center">
+            <form class="row g-3 needs-validation" id="questionForm" novalidate asp-controller="Question" asp-action="QuestionSave">
+                <input type="hidden" asp-for="QuestionID" />
+                <input type="hidden" asp-for="UserID" value="@CommonVariable.UserID()" />
+                <div class="col-md-6 d-flex align-items-center">
                     <div class="form-check" style="width: 2.8rem;"></div>
                     <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="floatingText"
-                               placeholder="QuestionText"
-                               required
-                               minlength="3">
-                        <label for="floatingText">Question Text</label>
+                        <select class="form-select border border-2" id="floatingQuestionType" required>
+                            <option value="1" selected>MCQ</option>
+                            <option value="2">True / False</option>
+                        </select>
+                        <label for="floatingQuestionType">Question Type</label>
                         <div class="invalid-feedback">
-                            Question Text is required and must be at least 3 characters.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 d-flex align-items-center gap-3">
-                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="floatingOptionA"
-                               placeholder="Option-A"
-                               required
-                               minlength="1">
-                        <label for="floatingOptionA">Option-A</label>
-                        <div class="invalid-feedback">
-                            Option Text is required and must be at least 1 characters.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 d-flex align-items-center gap-3">
-                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="floatingOptionB"
-                               placeholder="Option-B"
-                               required
-                               minlength="1">
-                        <label for="floatingOptionB">Option-B</label>
-                        <div class="invalid-feedback">
-                            Option Text is required and must be at least 1 characters.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 d-flex align-items-center gap-3">
-                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="floatingOptionC"
-                               placeholder="Option-C"
-                               required
-                               minlength="1">
-                        <label for="floatingOptionC">Option-C</label>
-                        <div class="invalid-feedback">
-                            Option Text is required and must be at least 1 characters.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 d-flex align-items-center gap-3">
-                    <input type="radio" name="correctOption" class="form-check-input custom-radio" value="" />
-                    <div class="form-floating flex-grow-1">
-                        <input type="text"
-                               class="form-control"
-                               id="floatingOptionD"
-                               placeholder="Option-D"
-                               required
-                               minlength="1">
-                        <label for="floatingOptionD">Option-D</label>
-                        <div class="invalid-feedback">
-                            Option Text is required and must be at least 1 characters.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 d-flex align-items-center">
-                    <div class="form-check" style="width: 2.8rem;"></div>
-                    <div class="form-floating flex-grow-1">
-                        <input type="number"
-                               class="form-control"
-                               id="floatingQuestionMark"
-                               placeholder="Question Marks"
-                               required
-                               min="1">
-                        <label for="floatingQuestionMark">Question Marks</label>
-                        <div class="invalid-feedback">
-                            Question Marks must be at least 1.
+                            Must select a type for the question.
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
                     <div class="form-check" style="width: 2.8rem;"></div>
                     <div class="form-floating flex-grow-1">
-                        <select class="form-select" id="floatingQuestionLevel" required>
-                            <option value="" selected disabled>Select Question Level</option>
-                            <option value="1">Easy</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Hard</option>
+                        <select class="form-select border border-2" id="floatingIsActive" asp-for="IsActive" required>
+                            <option value="True" selected="@(Model.IsActive ? "selected" : null)">True</option>
+                            <option value="False" selected="@(Model.IsActive ? null : "selected")">False</option>
                         </select>
-                        <label for="floatingQuestionLevel">Question Level</label>
-                        <div class="invalid-feedback">
-                            Must select a level for the question.
-                        </div>
+
+
+                        <label for="floatingIsActive">Active Status</label>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 d-flex align-items-center">
+                    <div class="form-check" style="width: 2.8rem;"></div>
+                    <div class="form-floating flex-grow-1">
+                        <textarea
+                               class="form-control border border-2"
+                               id="floatingText"
+                               placeholder="QuestionText"
+                               required
+                               asp-for="QuestionText"></textarea>
+                        <label for="floatingText"><span class="text-danger fw-bold">*</span>Question Text</label>
+                        <span asp-validation-for="QuestionText" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" asp-for="CorrectOption" class="form-check-input custom-radio" value="A" checked />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control border border-2"
+                               id="floatingOptionA"
+                               placeholder="Option-A"
+                               required
+                               asp-for="OptionA">
+                        <label for="floatingOptionA"><span class="text-danger fw-bold">*</span>Option-A</label>
+                        <span asp-validation-for="OptionA" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" asp-for="CorrectOption" class="form-check-input custom-radio" value="B" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control border border-2"
+                               id="floatingOptionB"
+                               placeholder="Option-B"
+                               required
+                               asp-for="OptionB">
+                        <label for="floatingOptionB"><span class="text-danger fw-bold">*</span>Option-B</label>
+                        <span asp-validation-for="OptionB" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" asp-for="CorrectOption" class="form-check-input custom-radio" value="C" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control  border border-2"
+                               id="floatingOptionC"
+                               placeholder="Option-C"
+                               required
+                               asp-for="OptionC">
+                        <label for="floatingOptionC"><span class="text-danger fw-bold">*</span>Option-C</label>
+                        <span asp-validation-for="OptionC" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center gap-3">
+                    <input type="radio" name="correctOption" asp-for="CorrectOption" class="form-check-input custom-radio" value="D" />
+                    <div class="form-floating flex-grow-1">
+                        <input type="text"
+                               class="form-control border border-2"
+                               id="floatingOptionD"
+                               placeholder="Option-D"
+                               required
+                               asp-for="OptionD">
+                        <label for="floatingOptionD"><span class="text-danger fw-bold">*</span>Option-D</label>
+                        <span asp-validation-for="OptionD" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="form-check" style="width: 2.8rem;"></div>
+                    <div class="form-floating flex-grow-1">
+                        <input type="number"
+                               class="form-control border border-2"
+                               id="floatingQuestionMark"
+                               placeholder="Question Marks"
+                               required
+                               asp-for="QuestionMark"
+                               value="@(Model.QuestionMark == 0 ? "" :Model.QuestionMark.ToString())" >
+                        <label for="floatingQuestionMark"><span class="text-danger fw-bold">*</span>Question Marks</label>
+                        <span asp-validation-for="QuestionMark" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="form-check" style="width: 2.8rem;"></div>
+                    <div class="form-floating flex-grow-1">
+                        <select class="form-select border border-2" id="floatingQuestionLevel" asp-for="QuestionLevelID" asp-items="@(ViewBag.QuestionLevelList != null ? new SelectList(ViewBag.QuestionLevelList, "QuestionLevelID", "QuestionLevel") : new SelectList(new List<SelectListItem>()))" required>
+                            <option value="" selected disabled>Select Question Level</option>
+                            
+                        </select>
+                        <label for="floatingQuestionLevel"><span class="text-danger fw-bold">*</span>Question Level</label>
+                        <span asp-validation-for="QuestionLevelID" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="text-center pt-3">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <button type="submit" onclick="confirmSave(event)" class="btn btn-success">Save</button>
+                    <a asp-controller="Question" onclick="confirmCancel(event)" asp-action="QuestionList" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
 
@@ -156,4 +170,142 @@
             box-shadow: 0 0 5px #007bff;
             border-color: #0056b3; /* Darker blue border on focus */
         }
+
+    .d-none {
+        display: none !important;
+    }
 </style>
+
+<!-- Script For True False -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const questionType = document.getElementById("floatingQuestionType");
+        const optionA = document.getElementById("floatingOptionA");
+        const optionB = document.getElementById("floatingOptionB");
+        const optionC = document.getElementById("floatingOptionC");
+        const optionD = document.getElementById("floatingOptionD");
+        const radioButtons = document.querySelectorAll('input[name="correctOption"]');
+        function toggleFields() {
+            if (questionType.value === "2") { // If "True / False" is selected
+                optionA.value = "True";
+                optionB.value = "False";
+                optionA.setAttribute("readonly", true);
+                optionB.setAttribute("readonly", true);
+                optionC.setAttribute("disabled", true);
+                optionC.value = null;
+                optionD.value = null;
+                optionD.setAttribute("disabled", true);
+                radioButtons[0].disabled = false; // Enable only first two radio buttons
+                radioButtons[1].disabled = false;
+                radioButtons[2].disabled = true;
+                radioButtons[3].disabled = true;
+                radioButtons[0].checked = true; // Default correct option
+            } else { // If "MCQ" is selected
+                console.log(@Model.QuestionID);
+                var questionID = @Model.QuestionID;
+                optionA.value = questionID==0 ? "": document.getElementById("floatingOptionA").value;
+                optionB.value = questionID==0 ? "": document.getElementById("floatingOptionB").value;
+                optionA.removeAttribute("readonly");
+                optionB.removeAttribute("readonly");
+                optionC.removeAttribute("disabled");
+                optionD.removeAttribute("disabled");
+                radioButtons.forEach(rb => rb.disabled = false); // Enable all radio buttons
+            }
+        }
+
+        questionType.addEventListener("change", toggleFields);
+
+        // Run on page load to set the initial state
+        toggleFields();
+    });
+
+    document.getElementById("floatingQuestionMark").addEventListener("input", function (e) {
+        this.value = this.value.replace(/[^0-9]/g, ''); // Restrict to only numeric values
+    });
+</script>
+
+<script>
+        // Function to check if form fields are empty
+    function isFormEmpty(form) {
+        let isEmpty = true;
+
+        form.find("input[type=text], input[type=email], input[type=number], textarea, select").each(function () {
+            let value = $(this).val();
+            if (value !== null && value.trim() !== "" && value !== "0") {
+                isEmpty = false; // Form has at least one non-empty value
+                return false; // Break the loop early
+            }
+        });
+
+        return isEmpty;
+    }
+
+    // Save Confirmation Function
+    function confirmSave(event) {
+        event.preventDefault();
+        var form = $("#questionForm");
+        form.validate();
+        if (!form.valid()) {
+            Swal.fire({
+                title: "Validation Error!",
+                text: "Please fill out all required fields before saving.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to save this Question?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your Question Has Been Saved Successfully.",
+                    text: 'Redirecting to Question List...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    document.getElementById("questionForm").submit();
+                    // window.location.href = "/Questions/QuestionList";
+                });
+            }
+        });
+    }
+
+    // Cancel Confirmation Function
+    function confirmCancel(event) {
+        event.preventDefault();
+        var form = $("#questionForm");
+
+        if (isFormEmpty(form)) {
+            // Force redirection for empty form
+            window.location.replace("/Question/QuestionList");
+            return;
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "All unsaved changes will be lost.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Yes, cancel",
+            cancelButtonText: "No, stay here"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.replace("/Question/QuestionList");
+            }
+        });
+    }
+
+
+</script>
+

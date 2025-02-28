@@ -1,9 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model QuizManagement.Models.QuestionLevelModel
 @{
+    ViewData["Title"] = "QuestionLevel Add/Edit";
 }
-
 <main id="main" class="main flex-grow-1">
 
     <div class="pagetitle">
@@ -20,7 +18,9 @@
         <div class="card-body">
             <h5 class="card-title">Add / Edit QuestionLevel</h5>
 
-            <form class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation" id="questionLevelForm" novalidate asp-controller="QuestionLevel" asp-action="QuestionLevelSave" asp-route-QuestionLevelID="QuestionLevelID">
+                <input type="hidden" asp-for="QuestionLevelID" />
+                <input type="hidden" asp-for="UserID" value="@CommonVariable.UserID()" />
                 <div class="col-md-12">
                     <div class="form-floating">
                         <input type="text"
@@ -28,17 +28,15 @@
                                id="floatingLevel"
                                placeholder="Question Level"
                                required
-                               minlength="3">
-                        <label for="floatingLevel">Question Level</label>
-                        <div class="invalid-feedback">
-                            Question Level is required and must be at least 3 characters.
-                        </div>
+                               asp-for="QuestionLevel">
+                        <label for="floatingLevel"><span class="text-danger fw-bold">*</span>Question Level</label>
+                        <span asp-validation-for="QuestionLevel" class="text-danger"></span>
                     </div>
                 </div>
                 
                 <div class="text-center pt-3">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <button type="submit" onclick="confirmSave(event)" class="btn btn-success">Save</button>
+                    <a type="reset" onclick="confirmCancel(event)" asp-controller="QuestionLevel" asp-action="QuestionLevelList" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
 
@@ -46,3 +44,103 @@
         </div>
     </div>
 </main>
+
+<script>
+        function confirmSave(event) {
+        event.preventDefault(); // Prevent form submission
+
+        var form = $("#questionLevelForm");
+
+        // Trigger client-side validation
+        form.validate(); // Ensure validation runs
+        if (!form.valid()) {
+            // Collect error messages from validation spans
+            var errors = [];
+            form.find("span[data-valmsg-for]").each(function () {
+                var errorMsg = $(this).text().trim();
+                if (errorMsg) {
+                    errors.push(errorMsg);
+                }
+            });
+
+            // Show SweetAlert2 with validation errors
+            if (errors.length > 0) {
+                Swal.fire({
+                    title: "Validation Error!",
+                    text: "Please fill out all fields before submitting.",
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                });
+            }
+            return; // Stop execution if validation fails
+        }
+
+        // If validation passes, show confirmation popup
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to save this Quiz?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your Quiz has Been Saved Successfully.",
+                    text: 'Redirecting to QuestionLevel List...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    form[0].submit();
+                });
+            }
+        });
+    }
+
+    // Function to check if form fields are empty
+    function isFormEmpty(form) {
+        let isEmpty = true;
+
+        form.find("input[type=text], input[type=email], input[type=number], textarea, select").each(function () {
+            let value = $(this).val();
+            if (value !== null && value.trim() !== "" && value !== "0") {
+                isEmpty = false; // Form has at least one non-empty value
+                return false; // Break the loop early
+            }
+        });
+
+        return isEmpty;
+    }
+
+    // Cancel Confirmation Function
+    function confirmCancel(event) {
+        event.preventDefault();
+        var form = $("#questionLevelForm");
+
+        if (isFormEmpty(form)) {
+            // Force redirection for empty form
+            window.location.replace("/QuestionLevel/QuestionLevelList");
+            return;
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "All unsaved changes will be lost.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Yes, cancel",
+            cancelButtonText: "No, stay here"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.replace("/QuestionLevel/QuestionLevelList");
+            }
+        });
+    }
+
+
+</script>
+

@@ -1,0 +1,138 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Login Page";
+}
+@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+@model QuizManagement.Models.UserLoginModel
+<main>
+    <div class="container">
+
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                        <div class="d-flex justify-content-center py-4">
+                            <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                <img src="~/logo.jpg" class="rounded-circle img-fluid" style="" alt="">
+                                <span class="d-none d-lg-block">Quiz Management</span>
+                            </a>
+                        </div><!-- End Logo -->
+
+                        <div class="card mb-3">
+
+                            <div class="card-body">
+
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                                    <p class="text-center small">Enter your persona details & password to login</p>
+                                </div>
+
+                                <form class="row g-3 needs-validation" method="post" asp-controller="User" asp-action="UserLogin" id="loginForm" novalidate>
+
+                                    <div class="col-12">
+                                        <label for="yourUsername" class="form-label">Username / Email / MobileNo.</label>
+                                        <input type="text" asp-for="Credential" class="form-control" id="yourUsername" required>
+                                        <span asp-validation-for="Credential" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Password</label>
+                                        <input type="password" asp-for="Password" class="form-control" id="yourPassword" required>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100" type="submit">Login</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Don't have account? <a asp-controller="User" asp-action="Register">Create an account</a></p>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div class="credits">
+                            <!-- All the links in the footer should remain intact. -->
+                            <!-- You can delete the links only if you purchased the pro version. -->
+                            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</main><!-- End #main -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<script>
+        function confirmSave(event) {
+        event.preventDefault(); // Prevent form submission
+
+        var form = $("#loginForm");
+
+        // Trigger client-side validation
+        form.validate(); // Ensure validation runs
+        if (!form.valid()) {
+            // Collect error messages from validation spans
+            var errors = [];
+            form.find("span[data-valmsg-for]").each(function () {
+                var errorMsg = $(this).text().trim();
+                if (errorMsg) {
+                    errors.push(errorMsg);
+                }
+            });
+
+            // Show SweetAlert2 with validation errors
+            if (errors.length > 0) {
+                Swal.fire({
+                    title: "Validation Error!",
+                    text: "Please fill out all fields before submitting.",
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                });
+            }
+            return; // Stop execution if validation fails
+        }
+
+        // If validation passes, show confirmation popup
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to save this Quiz?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your Quiz has Been Saved Successfully.",
+                    text: 'Redirecting to Quiz List...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    form[0].submit();
+                });
+            }
+        });
+    }
+</script>

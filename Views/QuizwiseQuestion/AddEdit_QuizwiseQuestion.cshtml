@@ -1,70 +1,196 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model QuizManagement.Models.QuizwiseQuestionModel
 @{
+    ViewData["Title"] = "Quizwise Question Add/Edit";
 }
 
-<main id="main" class="main">
+
+<main id="main" class="main flex-grow-1 ">
 
     <div class="pagetitle">
         <h1>Question</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Question</li>
-                <li class="breadcrumb-item active">AddEdit_Question</li>
+                <li class="breadcrumb-item active">Quiz wise Question</li>
             </ol>
         </nav>
     </div>
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Add / Edit Question</h5>
+            <h5 class="card-title">Add / Edit Quiz wise Question</h5>
+            <hr />
+            <form class="row g-3 needs-validation" id="quizwiseQuestionForm" novalidate asp-controller="QuizwiseQuestion" asp-action="QuizwiseQuestionList">
+                <div class="col-md-3">
+                    <label class="form-label">Total Questions Allowed</label>
+                    <input type="text" class="form-control" name="totalQuestion" readonly disabled value="10" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Minimum Questions</label>
+                    <input type="number" class="form-control" name="selectedQuestionCount" id="selectedQuestion" readonly disabled value=0 />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Select Quiz</label>
+                    <select class="form-select">
+                        <option value="" disabled selected>Select Quiz to Enter Question</option>
+                        <option>DS Quiz</option>
+                        <option>WT Quiz</option>
+                    </select>
+                </div>
 
-            <form class="row g-3 needs-validation" novalidate>
-                <div class="col-md-12">
-                    <div class="form-floating">
-                        <input type="text"
-                               class="form-control"
-                               id="floatingName"
-                               placeholder="QuizName"
-                               required
-                               minlength="3">
-                        <label for="floatingName">Quiz Name</label>
-                        <div class="invalid-feedback">
-                            Quiz name is required and must be at least 3 characters.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-floating">
-                        <input type="number"
-                               class="form-control"
-                               id="floatingTotalQuestions"
-                               placeholder="TotalQuestions"
-                               required
-                               min="1">
-                        <label for="floatingTotalQuestions">Total Questions</label>
-                        <div class="invalid-feedback">
-                            Total questions must be at least 1.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-floating">
-                        <input type="date"
-                               class="form-control"
-                               id="floatingDate"
-                               placeholder="QuizDate"
-                               required>
-                        <label for="floatingDate">Quiz Date</label>
-                        <div class="invalid-feedback">
-                            Please select a valid quiz date.
-                        </div>
-                    </div>
-                </div>
+                <table class="table datatable table-striped">
+                    <thead>
+                        <tr>
+                            <th class="col-1" data-orderable="false"><input type="checkbox" class="form-check select-all" value="" /></th>
+                            <th class="col-4">Question</th>
+                            <th class="col-1">Option A</th>
+                            <th class="col-1">Option B</th>
+                            <th class="col-1">Option C</th>
+                            <th class="col-1">Option D</th>
+                            <th class="col-2">Correct Option</th>
+                            <th class="col-1">Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which data structure is used for implementing recursion?</td>
+                            <td>Stack</td>
+                            <td>Queue</td>
+                            <td>List</td>
+                            <td>Array</td>
+                            <td class="text-center">A</td>
+                            <td>1</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which of the following is not the application of stack?</td>
+                            <td>Compiler Syntax Analyzer</td>
+                            <td>Data Transfer between two asynchronous process</td>
+                            <td>Tracking of local variables at run time</td>
+                            <td>A parentheses balancing program</td>
+                            <td class="text-center">B</td>
+                            <td>2</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
+                            <td>74</td>
+                            <td>22</td>
+                            <td>40</td>
+                            <td>-18</td>
+                            <td class="text-center">D</td>
+                            <td>3</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which data structure is used for implementing recursion?</td>
+                            <td>Stack</td>
+                            <td>Queue</td>
+                            <td>List</td>
+                            <td>Array</td>
+                            <td class="text-center">A</td>
+                            <td>1</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which of the following is not the application of stack?</td>
+                            <td>Compiler Syntax Analyzer</td>
+                            <td>Data Transfer between two asynchronous process</td>
+                            <td>Tracking of local variables at run time</td>
+                            <td>A parentheses balancing program</td>
+                            <td class="text-center">B</td>
+                            <td>2</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
+                            <td>74</td>
+                            <td>22</td>
+                            <td>40</td>
+                            <td>-18</td>
+                            <td class="text-center">D</td>
+                            <td>3</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which data structure is used for implementing recursion?</td>
+                            <td>Stack</td>
+                            <td>Queue</td>
+                            <td>List</td>
+                            <td>Array</td>
+                            <td class="text-center">A</td>
+                            <td>1</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which of the following is not the application of stack?</td>
+                            <td>Compiler Syntax Analyzer</td>
+                            <td>Data Transfer between two asynchronous process</td>
+                            <td>Tracking of local variables at run time</td>
+                            <td>A parentheses balancing program</td>
+                            <td class="text-center">B</td>
+                            <td>2</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
+                            <td>74</td>
+                            <td>22</td>
+                            <td>40</td>
+                            <td>-18</td>
+                            <td class="text-center">D</td>
+                            <td>3</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which data structure is used for implementing recursion?</td>
+                            <td>Stack</td>
+                            <td>Queue</td>
+                            <td>List</td>
+                            <td>Array</td>
+                            <td class="text-center">A</td>
+                            <td>1</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>Which of the following is not the application of stack?</td>
+                            <td>Compiler Syntax Analyzer</td>
+                            <td>Data Transfer between two asynchronous process</td>
+                            <td>Tracking of local variables at run time</td>
+                            <td>A parentheses balancing program</td>
+                            <td class="text-center">B</td>
+                            <td>2</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
+                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
+                            <td>74</td>
+                            <td>22</td>
+                            <td>40</td>
+                            <td>-18</td>
+                            <td class="text-center">D</td>
+                            <td>3</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+                </table>
                 <div class="text-center pt-3">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <button  type="submit" onclick="confirmSave(event)" class="btn btn-success">Save</button>
+                    <a asp-controller="QuizwiseQuestion" asp-action="QuizwiseQuestionList" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
 
@@ -72,3 +198,116 @@
         </div>
     </div>
 </main>
+
+<script>
+        function confirmSave(event) {
+        event.preventDefault(); // Prevent form submission
+
+        var form = $("#quizwiseQuestionForm");
+
+        // Trigger client-side validation
+        form.validate(); // Ensure validation runs
+        if (!form.valid()) {
+            // Collect error messages from validation spans
+            var errors = [];
+            form.find("span[data-valmsg-for]").each(function () {
+                var errorMsg = $(this).text().trim();
+                if (errorMsg) {
+                    errors.push(errorMsg);
+                }
+            });
+
+            // Show SweetAlert2 with validation errors
+            if (errors.length > 0) {
+                Swal.fire({
+                    title: "Validation Error!",
+                    text: "Please fill out all fields before submitting.",
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                });
+            }
+            return; // Stop execution if validation fails
+        }
+
+        // If validation passes, show confirmation popup
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to save this Quiz?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your Quiz has Been Saved Successfully.",
+                    text: 'Redirecting to QuizwiseQuestion List...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    form[0].submit();
+                });
+            }
+        });
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () { 
+        console.log("Call addedit");
+
+            const selectAllCheckbox = document.querySelector(".select-all");
+            const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+            const totalSelected = document.getElementById("selectedQuestion");
+            
+
+            function updateSelectedCount() {
+                const checkedBoxes = document.querySelectorAll(".row-checkbox:checked").length;
+                totalSelected.disabled = false;  // Enable input to update value
+                totalSelected.value = checkedBoxes;
+                totalSelected.disabled = true;   // Disable again
+            }
+
+            // Select/Deselect all checkboxes when header checkbox is clicked
+            selectAllCheckbox.addEventListener("change", function () {
+                const isChecked = this.checked;
+                rowCheckboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+               
+                updateSelectedCount();
+            });
+
+            // Uncheck header checkbox if any row checkbox is unchecked
+            rowCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function () {
+                    const totalCheckbox = rowCheckboxes.length;
+                    const checkedBoxes = document.querySelectorAll(".row-checkbox:checked").length;
+                    selectAllCheckbox.checked = (checkedBoxes === totalCheckbox);
+                    updateSelectedCount();
+                    console.log(totalSelected.value);
+                });
+            });
+        });
+
+</script>
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let table = new DataTable(".datatable", {
+                paging: true,       // Enable pagination
+                searching: true,    // Enable search bar
+                ordering: true,     // Enable column sorting
+                pageLength: 10,       // Set default rows per page
+                columnDefs: [
+                    {orderable: false, targets: 0},
+                    { orderable: true, targets: [1, 7] }, // Enable sorting for "Question" and "Marks"
+                    { orderable: false, targets: '_all' } // Disable sorting for all other columns
+                ]
+        });
+        })
+
+</script>
+
+
+

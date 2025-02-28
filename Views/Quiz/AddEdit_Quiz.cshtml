@@ -1,5 +1,9 @@
-﻿
-<main id="main" class="main">
+﻿@model QuizManagement.Models.QuizModel
+@{
+    ViewData["Title"] = "Quiz Add/Edit";
+}
+
+<main id="main" class="main flex-grow-1">
 
     <div class="pagetitle">
         <h1>Quiz</h1>
@@ -15,7 +19,9 @@
         <div class="card-body">
             <h5 class="card-title">Add / Edit Quiz</h5>
 
-            <form class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation" id="quizForm" asp-controller="Quiz" asp-action="QuizSave" asp-route-QuizID="QuizID">
+                <input type="hidden" asp-for="QuizID" />
+                <input type="hidden" asp-for="UserID" value="@CommonVariable.UserID()" />
                 <div class="col-md-12">
                     <div class="form-floating">
                         <input type="text"
@@ -23,11 +29,9 @@
                                id="floatingName"
                                placeholder="QuizName"
                                required
-                               minlength="3">
-                        <label for="floatingName">Quiz Name</label>
-                        <div class="invalid-feedback">
-                            Quiz name is required and must be at least 3 characters.
-                        </div>
+                               asp-for="QuizName">
+                        <label for="floatingName"><span class="text-danger fw-bold">*</span>Quiz Name</label>
+                        <span asp-validation-for="QuizName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -36,12 +40,11 @@
                                class="form-control"
                                id="floatingTotalQuestions"
                                placeholder="TotalQuestions"
-                               required
-                               min="1">
-                        <label for="floatingTotalQuestions">Total Questions</label>
-                        <div class="invalid-feedback">
-                            Total questions must be at least 1.
-                        </div>
+                               asp-for="TotalQuestions"
+                               value="@(Model.TotalQuestions == 0 ? "" : Model.TotalQuestions.ToString())"
+                               required />
+                        <label for="floatingTotalQuestions"><span class="text-danger fw-bold">*</span>Total Questions</label>
+                        <span asp-validation-for="TotalQuestions" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -50,20 +53,73 @@
                                class="form-control"
                                id="floatingDate"
                                placeholder="QuizDate"
-                               required>
-                        <label for="floatingDate">Quiz Date</label>
-                        <div class="invalid-feedback">
-                            Please select a valid quiz date.
-                        </div>
+                               asp-for="QuizDate" 
+                               value="@(Model.QuizDate == DateTime.MinValue ? "" : Model.QuizDate.ToString("yyyy-MM-dd"))"
+                               required />
+                        <label for="floatingDate"><span class="text-danger fw-bold">*</span>Quiz Date</label>
+                        <span asp-validation-for="QuizDate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="text-center pt-3">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <button type="submit" onclick="confirmSave(event)" class="btn btn-success">Save</button>
+                    <a class="btn btn-danger" asp-controller="Quiz" asp-action="QuizList">Cancel</a>
                 </div>
             </form>
-
-
         </div>
     </div>
 </main>
+
+<script>
+        function confirmSave(event) {
+        event.preventDefault(); // Prevent form submission
+
+        var form = $("#quizForm");
+
+        // Trigger client-side validation
+        form.validate(); // Ensure validation runs
+        if (!form.valid()) {
+            // Collect error messages from validation spans
+            var errors = [];
+            form.find("span[data-valmsg-for]").each(function () {
+                var errorMsg = $(this).text().trim();
+                if (errorMsg) {
+                    errors.push(errorMsg);
+                }
+            });
+
+            // Show SweetAlert2 with validation errors
+            if (errors.length > 0) {
+                Swal.fire({
+                    title: "Validation Error!",
+                    text: "Please fill out all fields before submitting.",
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                });
+            }
+            return; // Stop execution if validation fails
+        }
+
+        // If validation passes, show confirmation popup
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to save this Quiz?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your Quiz has Been Saved Successfully.",
+                    text: 'Redirecting to Quiz List...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    form[0].submit();
+                });
+            }
+        });
+    }
+</script>

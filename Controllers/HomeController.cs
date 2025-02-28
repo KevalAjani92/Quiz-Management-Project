@@ -4,6 +4,7 @@ using QuizManagement.Models;
 
 namespace QuizManagement.Controllers
 {
+    [CheckAccess]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
