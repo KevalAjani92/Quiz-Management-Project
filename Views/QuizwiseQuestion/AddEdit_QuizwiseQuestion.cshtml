@@ -1,7 +1,9 @@
-﻿@model QuizManagement.Models.QuizwiseQuestionModel
+﻿@* @model QuizManagement.Models.QuizwiseQuestionModel *@
 @{
     ViewData["Title"] = "Quizwise Question Add/Edit";
 }
+@model DataTable
+@using System.Data
 
 
 <main id="main" class="main flex-grow-1 ">
@@ -23,22 +25,21 @@
             <form class="row g-3 needs-validation" id="quizwiseQuestionForm" novalidate asp-controller="QuizwiseQuestion" asp-action="QuizwiseQuestionList">
                 <div class="col-md-3">
                     <label class="form-label">Total Questions Allowed</label>
-                    <input type="text" class="form-control" name="totalQuestion" readonly disabled value="10" />
+                    <input type="number" class="form-control" name="totalQuestion" readonly disabled value=0 id="totalQuestionAllowed" />
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Minimum Questions</label>
+                    <label class="form-label">Entered Questions</label>
                     <input type="number" class="form-control" name="selectedQuestionCount" id="selectedQuestion" readonly disabled value=0 />
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Select Quiz</label>
-                    <select class="form-select">
+                    <select class="form-select" id="quizDropDown" asp-items="@(ViewBag.QuizList != null ? new SelectList(ViewBag.QuizList, "QuizID", "QuizName") : new SelectList(new List<SelectListItem>()))">
                         <option value="" disabled selected>Select Quiz to Enter Question</option>
-                        <option>DS Quiz</option>
-                        <option>WT Quiz</option>
+
                     </select>
                 </div>
 
-                <table class="table datatable table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th class="col-1" data-orderable="false"><input type="checkbox" class="form-check select-all" value="" /></th>
@@ -52,144 +53,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which data structure is used for implementing recursion?</td>
-                            <td>Stack</td>
-                            <td>Queue</td>
-                            <td>List</td>
-                            <td>Array</td>
-                            <td class="text-center">A</td>
-                            <td>1</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which of the following is not the application of stack?</td>
-                            <td>Compiler Syntax Analyzer</td>
-                            <td>Data Transfer between two asynchronous process</td>
-                            <td>Tracking of local variables at run time</td>
-                            <td>A parentheses balancing program</td>
-                            <td class="text-center">B</td>
-                            <td>2</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
-                            <td>74</td>
-                            <td>22</td>
-                            <td>40</td>
-                            <td>-18</td>
-                            <td class="text-center">D</td>
-                            <td>3</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which data structure is used for implementing recursion?</td>
-                            <td>Stack</td>
-                            <td>Queue</td>
-                            <td>List</td>
-                            <td>Array</td>
-                            <td class="text-center">A</td>
-                            <td>1</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which of the following is not the application of stack?</td>
-                            <td>Compiler Syntax Analyzer</td>
-                            <td>Data Transfer between two asynchronous process</td>
-                            <td>Tracking of local variables at run time</td>
-                            <td>A parentheses balancing program</td>
-                            <td class="text-center">B</td>
-                            <td>2</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
-                            <td>74</td>
-                            <td>22</td>
-                            <td>40</td>
-                            <td>-18</td>
-                            <td class="text-center">D</td>
-                            <td>3</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which data structure is used for implementing recursion?</td>
-                            <td>Stack</td>
-                            <td>Queue</td>
-                            <td>List</td>
-                            <td>Array</td>
-                            <td class="text-center">A</td>
-                            <td>1</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which of the following is not the application of stack?</td>
-                            <td>Compiler Syntax Analyzer</td>
-                            <td>Data Transfer between two asynchronous process</td>
-                            <td>Tracking of local variables at run time</td>
-                            <td>A parentheses balancing program</td>
-                            <td class="text-center">B</td>
-                            <td>2</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
-                            <td>74</td>
-                            <td>22</td>
-                            <td>40</td>
-                            <td>-18</td>
-                            <td class="text-center">D</td>
-                            <td>3</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which data structure is used for implementing recursion?</td>
-                            <td>Stack</td>
-                            <td>Queue</td>
-                            <td>List</td>
-                            <td>Array</td>
-                            <td class="text-center">A</td>
-                            <td>1</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>Which of the following is not the application of stack?</td>
-                            <td>Compiler Syntax Analyzer</td>
-                            <td>Data Transfer between two asynchronous process</td>
-                            <td>Tracking of local variables at run time</td>
-                            <td>A parentheses balancing program</td>
-                            <td class="text-center">B</td>
-                            <td>2</td>
-                            
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="form-check row-checkbox" value="" /></td>
-                            <td>What is the value of the postfix expression 6 3 2 4 + – *?</td>
-                            <td>74</td>
-                            <td>22</td>
-                            <td>40</td>
-                            <td>-18</td>
-                            <td class="text-center">D</td>
-                            <td>3</td>
-                            
-                        </tr>
+                        @foreach(DataRow rows in Model.Rows){
+                            <tr>
+                                <td><input type="checkbox" class="form-check row-checkbox" value="@rows["QuestionID"]" /></td>
+                                <td>@rows["QuestionText"]</td>
+                                <td>@rows["OptionA"]</td>
+                                <td>@rows["OptionB"]</td>
+                                <td>@rows["OptionC"]</td>
+                                <td>@rows["OptionD"]</td>
+                                <td class="text-center">@rows["CorrectOption"]</td>
+                                <td>@rows["QuestionMarks"]</td>
+                            </tr>
+                        }
+                        
                     </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
                 </table>
                 <div class="text-center pt-3">
-                    <button  type="submit" onclick="confirmSave(event)" class="btn btn-success">Save</button>
+                    <button  type="submit" onclick="addQuestion(event)" class="btn btn-success">Save</button>
                     <a asp-controller="QuizwiseQuestion" asp-action="QuizwiseQuestionList" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
@@ -198,7 +80,7 @@
         </div>
     </div>
 </main>
-
+<!--SweetAlert Scripts-->
 <script>
         function confirmSave(event) {
         event.preventDefault(); // Prevent form submission
@@ -252,21 +134,22 @@
             }
         });
     }
+</script>
 
-
-    document.addEventListener("DOMContentLoaded", function () { 
+<!--Additional Scripts-->
+<script>
+    // CheckBox
+    document.addEventListener("DOMContentLoaded", function () {
         console.log("Call addedit");
 
             const selectAllCheckbox = document.querySelector(".select-all");
             const rowCheckboxes = document.querySelectorAll(".row-checkbox");
             const totalSelected = document.getElementById("selectedQuestion");
-            
+
 
             function updateSelectedCount() {
                 const checkedBoxes = document.querySelectorAll(".row-checkbox:checked").length;
-                totalSelected.disabled = false;  // Enable input to update value
                 totalSelected.value = checkedBoxes;
-                totalSelected.disabled = true;   // Disable again
             }
 
             // Select/Deselect all checkboxes when header checkbox is clicked
@@ -275,7 +158,15 @@
                 rowCheckboxes.forEach(checkbox => {
                     checkbox.checked = isChecked;
                 });
-               
+                // console.log(document.getElementById("quizDropDown").value);
+                const quizDropDown = document.getElementById("quizDropDown");
+
+                if (!isChecked) {
+                    // sessionStorage.setItem("selectedQuiz", quizDropDown.value); // Store before reload
+                    // location.reload();
+                    
+                    quizDropDown.dispatchEvent(new Event("change"));
+                }
                 updateSelectedCount();
             });
 
@@ -286,12 +177,162 @@
                     const checkedBoxes = document.querySelectorAll(".row-checkbox:checked").length;
                     selectAllCheckbox.checked = (checkedBoxes === totalCheckbox);
                     updateSelectedCount();
-                    console.log(totalSelected.value);
                 });
             });
-        });
 
+            //For Edit Quiz
+            const url = new URL(window.location.href);
+            const quizID = Number(url.searchParams.get("QuizID")) ;
+            const quizDropDown = document.getElementById("quizDropDown");
+            
+            if(quizID !== 0){
+                fetch("/QuizwiseQuestion/GetQuizDetails",{
+                method:"POST",
+                headers:{ "Content-Type": "application/json" },
+                body: JSON.stringify(quizID)
+                })
+                .then(response =>{
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                })
+                .then(result =>{
+
+                    if (result.message === "Success") {
+                        document.getElementById("totalQuestionAllowed").value = result.totalQuestion;
+                        console.log("Total : "+result.totalQuestion);
+                        quizDropDown.value = quizID===0 ? "" : quizID;
+                        quizDropDown.dispatchEvent(new Event("change"));
+                        quizDropDown.disabled = true;
+                    } else {
+                        console.error("Error fetching data:", result);
+                    }
+                })
+                .catch(error=> console.error("Fetch error:", error));
+            }
+            
+        });
+            document.getElementById("quizDropDown").addEventListener("change",function(){
+            console.log(this.value);
+
+            const url = "/QuizwiseQuestion/GetQuestionID_From_QuizID";
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(this.value)
+                })
+                .then(response =>{
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(result =>{
+                    // console.log("Response:", result);
+
+                    if (result.message === "Success") {
+                        // console.log("Question IDs:", result.dataList);
+                        markQuestionFromArray(result.dataList);
+                    } else {
+                        console.error("Error fetching data:", result);
+                    }
+                })
+                .catch(error=> console.error("Fetch error:", error));
+
+                fetch("/QuizwiseQuestion/GetQuizDetails",{
+                method:"POST",
+                headers:{ "Content-Type": "application/json" },
+                body: JSON.stringify(this.value)
+                })
+                .then(response =>{
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                })
+                .then(result =>{
+
+                    if (result.message === "Success") {
+                        document.getElementById("totalQuestionAllowed").value = result.totalQuestion;
+                        // console.log("Total : "+result.totalQuestion);
+                        // quizDropDown.value = quizID===0 ? "" : quizID;
+                        // quizDropDown.dispatchEvent(new Event("change"));
+                    } else {
+                        console.error("Error fetching data:", result);
+                    }
+                })
+                .catch(error=> console.error("Fetch error:", error));
+                
+            })
+
+            function markQuestionFromArray(tempArr){
+                document.getElementById("selectedQuestion").value = tempArr.length;
+
+                const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+                rowCheckboxes.forEach((box)=>{
+                    if(tempArr.includes(box.value)){
+                        // console.log(box.checked);
+                        box.checked = true;
+                    }else{
+                        box.checked = false;
+                    }
+                })
+            }
+            // Restore dropdown value after reload
+            // window.addEventListener("load", function () {
+            //     const storedQuiz = sessionStorage.getItem("selectedQuiz");
+            //     if (storedQuiz) {
+            //         document.getElementById("quizDropDown").value = storedQuiz;
+            //         sessionStorage.removeItem("selectedQuiz"); // Clear storage after setting
+
+            //         // 🔥 Manually trigger the change event
+            //         quizDropDown.dispatchEvent(new Event("change"));
+            //     }
+            // });
+
+        function addQuestion(event){
+            event.preventDefault();
+            const checkedBoxes = document.querySelectorAll(".row-checkbox:checked")
+            const valuesArray = Array.from(checkedBoxes).map(checkbox => checkbox.value).join(",");
+            
+            const quizID = Number(document.getElementById("quizDropDown").value);
+            const userID = Number(@CommonVariable.UserID());
+            console.log(valuesArray,quizID,userID);
+
+            const url = "/QuizwiseQuestion/AddQuestions_Into_Quiz";
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({values : valuesArray,quizID : quizID,userID : userID})
+                })
+                .then(response =>{
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(result =>{
+                    // console.log("Response:", result);
+
+                    if (result.message === "Success") {
+                        window.location.href = '/QuizwiseQuestion/QuizwiseQuestionList';
+                    } else {
+                        console.error("Error fetching data:", result);
+                    }
+                })
+                .catch(error=> console.error("Fetch error:", error));
+                
+                
+        }
+        
 </script>
+
+<!--DataTable Script-->
 <script>
         document.addEventListener("DOMContentLoaded", function () {
             let table = new DataTable(".datatable", {

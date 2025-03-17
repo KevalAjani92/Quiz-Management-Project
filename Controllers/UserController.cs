@@ -80,6 +80,7 @@ namespace QuizManagement.Controllers
                     }
                     else
                     {
+                        TempData["ErrorMessage"] = "Invalid UserName Or Password";
                         return RedirectToAction("Login", "User");
                     }
                 }

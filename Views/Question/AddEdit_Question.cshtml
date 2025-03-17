@@ -171,9 +171,7 @@
             border-color: #0056b3; /* Darker blue border on focus */
         }
 
-    .d-none {
-        display: none !important;
-    }
+    
 </style>
 
 <!-- Script For True False -->
@@ -185,6 +183,14 @@
         const optionC = document.getElementById("floatingOptionC");
         const optionD = document.getElementById("floatingOptionD");
         const radioButtons = document.querySelectorAll('input[name="correctOption"]');
+        
+        console.log(@(string.IsNullOrEmpty(Model.OptionC) ? "true" : "false"));
+
+            if (@(string.IsNullOrEmpty(Model.OptionC) ? "true" : "false") && @Model.QuestionID != 0) {
+                questionType.value = 2;
+            }
+
+
         function toggleFields() {
             if (questionType.value === "2") { // If "True / False" is selected
                 optionA.value = "True";
@@ -199,7 +205,7 @@
                 radioButtons[1].disabled = false;
                 radioButtons[2].disabled = true;
                 radioButtons[3].disabled = true;
-                radioButtons[0].checked = true; // Default correct option
+                // radioButtons[0].checked = true;
             } else { // If "MCQ" is selected
                 console.log(@Model.QuestionID);
                 var questionID = @Model.QuestionID;

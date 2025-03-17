@@ -15,7 +15,7 @@ namespace QuizManagement.Models
 
         [Required]
         public int UserID {  get; set; }
-        public string Created {  get; set; }
-        public string Modified {  get; set; }
+        public string? Created {  get; set; }
+        public string? Modified {  get; set; }
     }
 }

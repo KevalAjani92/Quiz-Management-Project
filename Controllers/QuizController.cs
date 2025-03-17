@@ -2,10 +2,11 @@
 using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using QuizManagement.Models;
+using OfficeOpenXml;
 
 namespace QuizManagement.Controllers
 {
-    //[CheckAccess]
+    [CheckAccess]
     public class QuizController : Controller
     {
         private readonly IConfiguration _configuration;
@@ -14,6 +15,66 @@ namespace QuizManagement.Controllers
         {
             _configuration = configuration;
         }
+
+        public IActionResult ExportToExcel()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            string connectionString = _configuration.GetConnectionString("ConnectionString");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.CommandText = "PR_Quiz_SelectAll";
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(sqlDataReader);
+            int i = 1;
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("DataSheet");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Sr No.";
+                worksheet.Cells[1, 2].Value = "QuizName";
+                worksheet.Cells[1, 3].Value = "QuizDate";
+                worksheet.Cells[1, 4].Value = "TotalQuestions";
+                worksheet.Cells[1, 5].Value = "UserName";
+                worksheet.Cells[1, 6].Value = "Creation Date";
+
+                // Apply styling to the header row
+                var headerRange = worksheet.Cells["A1:F1"];
+                headerRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                headerRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGray); // Dark header row
+                headerRange.Style.Font.Color.SetColor(System.Drawing.Color.White); // White text
+                headerRange.Style.Font.Bold = true;
+                headerRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                // Add data
+                int row = 2;
+                foreach (DataRow item in data.Rows)
+                {
+                    worksheet.Cells[row, 1].Value = i;
+                    worksheet.Cells[row, 2].Value = item["QuizName"];
+                    worksheet.Cells[row, 3].Value = item["QuizDate"];
+                    worksheet.Cells[row, 4].Value = item["TotalQuestions"];
+                    worksheet.Cells[row, 5].Value = item["UserName"];
+                    worksheet.Cells[row, 6].Value = item["Created"];
+                    row++;
+                    i++;
+                }
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
         public IActionResult AddEdit_Quiz(int quizID)
         {
             string connectionString = this._configuration.GetConnectionString("ConnectionString");

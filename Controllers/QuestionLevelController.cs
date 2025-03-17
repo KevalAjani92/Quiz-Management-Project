@@ -5,7 +5,7 @@ using QuizManagement.Models;
 
 namespace QuizManagement.Controllers
 {
-    //[CheckAccess]
+    [CheckAccess]
     public class QuestionLevelController : Controller
     {
         private readonly IConfiguration _configuration;

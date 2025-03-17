@@ -1,8 +1,10 @@
-﻿@{
+﻿@model QuizManagement.Models.QuestionModel
+
+@{
     ViewData["Title"] = "Question Details";
 }
 
-<main id="main" class="main flex-grow-1">
+<main id="main" class="main">
     <div class="pagetitle">
         <h1>Question Details</h1>
         <nav>
@@ -14,116 +16,104 @@
         </nav>
     </div>
 
-    <!-- Glassmorphism Card with Background Gradient or Image -->
-    <div class="card glassmorphism-card">
+    <!-- Glassmorphism Card -->
+    <div class="card glassmorphism-card p-4 mt-3">
         <div class="card-body">
-            <h5 class="card-title pb-0 mb-0">Question Details</h5>
-            <p class="small text-danger mb-4">*Details of the selected question</p>
+            <h5 class="card-title text-center mb-4 fw-bold">📖 Question Details</h5>
 
             <div class="question-info">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Question Type:</strong> <span id="questionType">MCQ</span>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <strong>📌 Question ID:</strong> <span id="questionID">@Model.QuestionID</span>
                     </div>
-                    <div class="col-md-6">
-                        <strong>Active Status:</strong> <span id="activeStatus">True</span>
+                    <div class="col-md-4">
+                        <strong>📋 Type:</strong> <span id="questionType">@(string.IsNullOrEmpty(Model.OptionC) ? "True / False" : "MCQ")</span>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <strong>Question Text:</strong> <p id="questionText">What is the capital of France?</p>
+                    <div class="col-md-4">
+                        <strong>✅ Status:</strong> <span id="activeStatus" class="@(Convert.ToInt32(Model.IsActive) == 1 ? "text-success" : "text-danger") fw-bold">@Model.IsActive</span>
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Option-A:</strong> <span id="optionA">Paris</span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Option-B:</strong> <span id="optionB">London</span>
+                <hr>
+
+                <div class="row g-3">
+                    <div class="col">
+                        <strong>📝 Question:</strong>
+                        <p id="questionText" class="fs-5 fw-semibold text-primary">@Model.QuestionText</p>
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row g-3">
                     <div class="col-md-6">
-                        <strong>Option-C:</strong> <span id="optionC">Berlin</span>
+                        <strong>🎯 Difficulty:</strong>
+                        
+                        <span id="questionLevel" class="badge bg-primary">@ViewBag.QuestionLevel</span>
                     </div>
+
                     <div class="col-md-6">
-                        <strong>Option-D:</strong> <span id="optionD">Rome</span>
+                        <strong>🏆 Marks:</strong> <span id="questionMarks" class="fw-bold text-danger">@Model.QuestionMark</span>
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <hr>
+
+                <div class="row g-3">
                     <div class="col-md-6">
-                        <strong>Correct Option:</strong> <span id="correctOption">A</span>
+                        <strong>🔹 Option A:</strong> <span id="optionA">@Model.OptionA</span>
                     </div>
                     <div class="col-md-6">
-                        <strong>Question Marks:</strong> <span id="questionMarks">5</span>
+                        <strong>🔹 Option B:</strong> <span id="optionB">@Model.OptionB</span>
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                        <strong>Question Level:</strong> <span id="questionLevel">Medium</span>
+                        <strong>🔹 Option C:</strong> <span id="optionC">@(string.IsNullOrEmpty(Model.OptionC) == true ? "NA" : Model.OptionC)</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>🔹 Option D:</strong> <span id="optionD">@(string.IsNullOrEmpty(Model.OptionD) == true ? "NA" : Model.OptionD)</span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <strong>✅ Correct Answer:</strong>
+                        <span id="correctOption" class="fw-bold text-success">@Model.CorrectOption</span>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center pt-3">
-                <button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+            <!-- Back Button -->
+            <div class="text-center pt-4">
+                <button type="button" class="btn btn-outline-primary px-4" onclick="goBack()">⬅ Back</button>
             </div>
         </div>
     </div>
 </main>
 
+<!-- CSS Styles -->
 <style>
-    /* Glassmorphism Card with Gradient or Image Background */
+    /* Glassmorphism Card */
     .glassmorphism-card {
-        background: rgba( 242, 239, 239, 0.65 );
-        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-        backdrop-filter: blur( 20px );
-        -webkit-backdrop-filter: blur( 20px );
-        border-radius: 10px;
-        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        background: linear-gradient(120deg, rgba(178, 235, 242, 0.2) 5%, rgba(129, 212, 250, 0.2) 50%, rgba(187, 222, 251, 0.2) 95%);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-        /* Card Body with No Blur */
-        .glassmorphism-card .card-body {
-            background: none; /* Make the body background transparent */
-            border-radius: 15px;
-            padding: 20px;
-        }
-
-    /* Basic styling for text */
-    .question-info {
-        color: #000; /* Dark text for better contrast */
+    /* Responsive Spacing */
+    .row.g-3 > div {
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
-
-        .question-info .row {
-            margin-bottom: 10px;
-        }
-
-        .question-info strong {
-            font-weight: bold;
-        }
-
-        .question-info p,
-        .question-info span {
-            font-size: 1rem;
-            color: #333;
-        }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
 </style>
 
+<!-- JavaScript for Back Button -->
 <script>
     function goBack() {
         window.history.back();

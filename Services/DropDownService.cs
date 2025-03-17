@@ -38,5 +38,31 @@ namespace QuizManagement.Services
             }
             return questionLevelList;
         }
+        public List<QuizDropDownModel> GetQuizDropDown()
+        {
+            string connectionString = this._configuration.GetConnectionString("ConnectionString");
+            DataTable table = new DataTable();
+            List<QuizDropDownModel> quizList = new List<QuizDropDownModel>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("PR_Quiz_Dropdown", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        table.Load(reader);
+                        foreach (DataRow row in table.Rows)
+                        {
+                            QuizDropDownModel quizDropDownModel = new QuizDropDownModel();
+                            quizDropDownModel.QuizID = Convert.ToInt32(row["QuizID"]);
+                            quizDropDownModel.QuizName = row["QuizName"].ToString();
+                            quizList.Add(quizDropDownModel);
+                        }
+                    }
+                }
+            }
+            return quizList;
+        }
     }
 }

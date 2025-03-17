@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["Title"] = "Question List";
 }
 @model DataTable
@@ -77,9 +74,14 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title">Question Table</h5>
-                            <a class="btn btn-primary d-flex align-items-center" asp-controller="Question" asp-action="AddEdit_Question">
-                                <i class="bi bi-plus-circle me-2 d-flex align-items-center"></i>Add Question
-                            </a>
+                            <div class="d-flex gap-2 align-items-center">
+                                <a class="btn btn-primary d-flex align-items-center" asp-controller="Question" asp-action="AddEdit_Question">
+                                    <i class="bi bi-plus-circle me-2 d-flex align-items-center"></i>Add Question
+                                </a>
+                                <a class="btn btn-success d-flex align-items-center" asp-controller="Question" asp-action="ExportToExcel">
+                                    <i class="ri-file-excel-2-fill me-2 d-flex align-items-center"></i>Download Excel
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -114,7 +116,7 @@
                                                     </span>
                                                 </a>
 
-                                                <a class="btn border-0 p-0" title="View" asp-controller="Question" asp-action="">
+                                                <a class="btn border-0 p-0" title="View" asp-controller="Question" asp-action="QuestionDetail" asp-route-QuestionID="@row["QuestionID"]">
                                                     <span class="badge bg-secondary p-2 rounded-pill d-flex align-items-center justify-content-center">
                                                         <i class="bi bi-file-earmark fs-6 text-white"></i>
                                                     </span>

@@ -27,4 +27,11 @@ namespace QuizManagement.Models
         [AllowNull]
         public string? Modified {  get; set; }
     }
+    public class QuizDropDownModel
+    {
+        [Required]
+        public int QuizID { get; set; }
+        [Required]
+        public string QuizName { get; set; }
+    }
 }

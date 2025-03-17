@@ -1,0 +1,79 @@
+Create database CSE_23010101006;
+
+use CSE_23010101006;
+
+--User
+
+CREATE TABLE MST_User (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    UserName NVARCHAR(100) NOT NULL,
+    [Password] NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT NULL,
+    Mobile NVARCHAR(100) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+	IsAdmin Bit NOT NULL DEFAULT 0,
+    Created DATETIME DEFAULT GETDATE(),
+    Modified DATETIME DEFAULT GETDATE()
+);
+
+--Quiz
+
+CREATE TABLE MST_Quiz (
+    QuizID INT PRIMARY KEY IDENTITY(1,1),
+    QuizName NVARCHAR(100) NOT NULL,
+    TotalQuestions INT NOT NULL,
+	QuizDate DATETIME NOT NULL,
+    UserID INT NOT NULL,
+    Created DATETIME DEFAULT GETDATE(),
+    Modified DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES MST_User(UserID)
+);
+
+
+--QuestionLevel
+
+CREATE TABLE MST_QuestionLevel(
+	QuestionLevelID INT PRIMARY KEY IDENTITY(1,1),
+	QuestionLevel NVARCHAR(100) NOT NULL,
+	UserID INT NOT NULL,
+	Created DATETIME DEFAULT GETDATE(),
+    Modified DATETIME DEFAULT GETDATE(),
+	FOREIGN KEY (UserID) REFERENCES MST_User(UserID)
+)
+
+--Question
+
+CREATE TABLE MST_Question (
+    QuestionID INT PRIMARY KEY IDENTITY(1,1),
+    QuestionText NVARCHAR(MAX) NOT NULL,
+	QuestionLevelID INT NOT NULL,
+    OptionA NVARCHAR(100) NOT NULL,
+    OptionB NVARCHAR(100) NOT NULL,
+    OptionC NVARCHAR(100) NULL,
+    OptionD NVARCHAR(100) NULL,
+    CorrectOption NVARCHAR(100) NOT NULL,
+	QuestionMarks INT NOT NULL,
+	IsActive Bit DEFAULT 1,
+    UserID INT NOT NULL,
+    Created DATETIME DEFAULT GETDATE(),
+    Modified DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES MST_User(UserID),
+	FOREIGN KEY (QuestionLevelID) REFERENCES MST_QuestionLevel(QuestionLevelID)
+);
+
+-- QuizWiseQuestions
+
+CREATE TABLE MST_QuizWiseQuestions(
+	QuizWiseQuestionsID INT PRIMARY KEY IDENTITY(1,1),
+	QuizID INT NOT NULL,
+	QuestionID INT NOT NULL,
+	UserID INT NOT NULL,
+	Created DATETIME DEFAULT GETDATE(),
+    Modified DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (QuizID) REFERENCES MST_Quiz(QuizID),
+	FOREIGN KEY (QuestionID) REFERENCES MST_Question(QuestionID),
+    FOREIGN KEY (UserID) REFERENCES MST_User(UserID),
+)
+
+ALTER TABLE MST_QuizWiseQuestions
+ADD CONSTRAINT UQ_Quiz_Question UNIQUE (QuizID, QuestionID);

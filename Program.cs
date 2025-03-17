@@ -26,6 +26,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll",
+//        policy => policy.AllowAnyOrigin()
+//                        .AllowAnyMethod()
+//                        .AllowAnyHeader());
+//});
+//app.UseCors("AllowAll");
+
+
 // enables the authentication middleware in ASP.NET Core to handle user authentication for securing endpoints.​
 app.UseAuthentication();
 
